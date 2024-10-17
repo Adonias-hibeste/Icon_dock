@@ -80,7 +80,7 @@ Here are some screenshots of **Icon_Dock** on different devices:
 </div>
 
 <div style="flex: 1; min-width: 200px;">
-  <img src="assets/images/Screen-Shot-2024-10-17-at-3.05.16-AM.png" alt="Screenshot 2" style="width: 40%;">
+  <img src="assets/images/Screen-Shot-2024-10-17-at-3.05.16-AM.png" alt="Screenshot 2" style="width: 100%;">
   <p style="text-align: center;">Screenshot on macOS</p>
 </div>
 
