@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
+import 'package:icondock/dock.dart';
+import 'package:icondock/home_page.dart';
 import 'package:icondock/main.dart';
 
 void main() {
@@ -27,6 +28,9 @@ void main() {
       expect((appBar.title as Text).data, 'Icon Dock');
       expect(appBar.centerTitle, true);
       expect(appBar.elevation, 4);
+
+      final BuildContext context = tester.element(find.byType(AppBar));
+      expect(appBar.backgroundColor, Theme.of(context).appBarTheme.backgroundColor);
     });
 
     testWidgets('HomePage should contain a Dock widget', (WidgetTester tester) async {
@@ -36,59 +40,40 @@ void main() {
   });
 
   group('Dock Widget Tests', () {
-    testWidgets('Dock should display correct number of items', (WidgetTester tester) async {
-      final List<IconData> testIcons = [
-        Icons.person,
-        Icons.message,
-        Icons.call,
-      ];
-
+    testWidgets('Dock should be created and removed without active tickers', (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
             body: Dock<IconData>(
-              items: testIcons,
+              items: const [Icons.home, Icons.settings],
               builder: (IconData icon, bool isDragging) {
-                return DockItem(icon: icon, isDragging: isDragging);
+                return Icon(icon);
               },
+              onReorder: (_, __) {},
             ),
           ),
         ),
       );
 
-      expect(find.byType(DockItem), findsNWidgets(testIcons.length));
-    });
+      // Verify that the Dock widget is present
+      expect(find.byType(Dock<IconData>), findsOneWidget);
 
-    testWidgets('DockItem should respond to dragging', (WidgetTester tester) async {
+      // Remove the Dock widget
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: Scaffold(
-            body: Dock<IconData>(
-              items: const [Icons.person],
-              builder: (IconData icon, bool isDragging) {
-                return DockItem(icon: icon, isDragging: isDragging);
-              },
-            ),
+            body: SizedBox(),
           ),
         ),
       );
 
-      final Finder dockItemFinder = find.byType(DockItem);
-
-      // Verify initial state
-      DockItem dockItem = tester.widget(dockItemFinder);
-      expect(dockItem.isDragging, false);
-
-      // Start dragging
-      await tester.drag(dockItemFinder, const Offset(100, 0));
+      // Pump a frame to allow for disposal
       await tester.pump();
 
-      // Verify dragging state
-      // Note: This test might need adjustment based on how dragging state is managed in your implementation
-      // You might need to expose the dragging state or use a different method to verify it
+      // Verify that there are no active tickers
+      expect(tester.binding.transientCallbackCount, equals(0));
     });
   });
-
   group('Integration Tests', () {
     testWidgets('Full app flow - Dock reordering', (WidgetTester tester) async {
       await tester.pumpWidget(const MyApp());

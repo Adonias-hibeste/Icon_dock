@@ -68,6 +68,48 @@ Dock<IconData>(
 );
 
 ```
+## Screenshots
+
+Here are some screenshots of **Icon_Dock** on different devices:
+
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+
+<div style="flex: 1; min-width: 200px;">
+  <img src="assets/images/Screen-Shot-2024-10-17-at-3.10.34-AM.png" alt="Screenshot 1" style="width: 100%;">
+  <p style="text-align: center;">Screenshot on Android</p>
+</div>
+
+<div style="flex: 1; min-width: 200px;">
+  <img src="assets/images/Screen-Shot-2024-10-17-at-3.05.16-AM.png" alt="Screenshot 2" style="width: 100%;">
+  <p style="text-align: center;">Screenshot on macOS</p>
+</div>
+
+<div style="flex: 1; min-width: 200px;">
+  <img src="assets/images/Screen-Shot-2024-10-17-at-3.07.31-AM.png" alt="Screenshot 3" style="width: 100%;">
+  <p style="text-align: center;">Screenshot on Chrome</p>
+</div>
+
+
+</div>
+
+
+## Testing Region
+
+To ensure the quality and functionality of Icon_Dock, we've written some tests. Here's a highlight of what we have done:
+
+**Test Coverage:**
+
+* **Widget Construction:** Ensures that core widgets like `MyApp` and `HomePage` build successfully without errors.
+* **Theming:** Verifies that the app adheres to the defined theme (e.g., white background for the app bar).
+* **Component Presence:** Confirms that essential components like `AppBar` and `Dock` are present in the expected locations.
+* **State Management:** Tests the behavior of the `Dock` widget, especially when added or removed, ensuring proper ticker handling for animations.
+* **Integration Flow:** Simulates a comprehensive user interaction scenario involving dragging icons within the dock to reorder them.
+
+
+**Test Results:**
+
+![Test Results](assets/images/Screen-Shot-2024-10-17-at-2.49.24-AM.png)
+
 ## Contribution
 Contributions to Icon_Dock are welcome! If you have suggestions or improvements, please fork the repository and submit a pull request. You can also open an issue if you encounter any bugs or have feature requests.
 

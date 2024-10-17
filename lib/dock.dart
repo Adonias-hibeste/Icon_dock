@@ -75,11 +75,30 @@ class Dock<T> extends StatefulWidget {
 
 class _DockState<T> extends State<Dock<T>> with TickerProviderStateMixin {
   late List<T> _items;
+  final List<AnimationController> _controllers = [];
+
 
   @override
   void initState() {
     super.initState();
     _items = List.from(widget.items);
+  }
+
+  @override
+  void dispose() {
+    for (final controller in _controllers) {
+      controller.dispose();
+    }
+    super.dispose();
+  }
+
+  AnimationController _createAnimationController() {
+    final controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 200),
+    );
+    _controllers.add(controller);
+    return controller;
   }
 
   @override
@@ -109,10 +128,7 @@ class _DockState<T> extends State<Dock<T>> with TickerProviderStateMixin {
                     data: index,
                     feedback: ScaleTransition(
                       scale: Tween<double>(begin: 1.0, end: 1.5).animate(
-                        AnimationController(
-                          vsync: this,
-                          duration: const Duration(milliseconds: 200),
-                        )..forward(),
+                        _createAnimationController()..forward(),
                       ),
                       child: SizedBox(
                         width: itemWidth * 0.8,

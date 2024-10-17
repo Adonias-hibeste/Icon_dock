@@ -34,6 +34,8 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Icon Dock'),
+        centerTitle: true,
+        elevation: 4,
       ),
       body: Container(
         decoration: BoxDecoration(
